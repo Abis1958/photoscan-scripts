@@ -1,4 +1,4 @@
-# Script read RelativeAltitude information from DJI meta data for all the cameras in the active chunk
+# Script read Altitude information from DJI meta data for all the cameras in the active chunk
 # and loads it to the Reference pane instead of the existing data.
 #
 # This is python script for PhotoScan Pro. Scripts repository: https://github.com/agisoft-llc/photoscan-scripts
@@ -12,9 +12,9 @@ if found_major_version != compatible_major_version:
     raise Exception("Incompatible PhotoScan version: {} != {}".format(found_major_version, compatible_major_version))
 
 
-def read_DJI_relative_altitude():
+def read_DJI_altitude():
     """
-    Reads DJI/RelativeAltitude information from the image meta-date and writes it to the Reference pane
+    Reads DJI/Altitude information from the image meta-date and writes it to the Reference pane
     """
 
     doc = PhotoScan.app.document
@@ -27,7 +27,7 @@ def read_DJI_relative_altitude():
     for camera in chunk.cameras:
         if not camera.reference.location:
             continue
-        if ("DJI/RelativeAltitude" in camera.photo.meta.keys()) and camera.reference.location:
+        if ("DJI/Altitude" in camera.photo.meta.keys()) and camera.reference.location:
             z = float(camera.photo.meta["DJI/RelativeAltitude"])
             camera.reference.location = (camera.reference.location.x, camera.reference.location.y, z)
 
