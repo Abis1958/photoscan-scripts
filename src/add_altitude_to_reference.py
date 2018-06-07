@@ -20,7 +20,7 @@ def add_altitude():
     if not len(doc.chunks):
         raise Exception("No chunks!")
 
-    alt = PhotoScan.app.getFloat("Please specify the height to be added:", 100)
+    alt = PhotoScan.app.getFloat("Please specify the height to be added:", 49.120)
 
     print("Script started...")
     chunk = doc.chunk
