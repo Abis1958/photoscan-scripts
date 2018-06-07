@@ -1,0 +1,20 @@
+#Solves EXIF altitude problem for imagery acquired by DJI drones
+#For questions, get in touch with Agisoft PhotoScan forum user SAV
+#Tested on PhotoScan Pro 1.4.0
+
+import PhotoScan
+
+doc = PhotoScan.app.document
+chunk = doc.chunk
+
+flight_height = PhotoScan.app.getFloat("Please specify the flight height in meters", 30)
+take_off_alt = PhotoScan.app.getFloat("Please specify altitude above mean sea level for the point of take-off:", 0)
+
+for camera in chunk.cameras:
+	if camera.reference.location:
+		coord = camera.reference.location
+		camera.reference.location = PhotoScan.Vector([coord[0], coord[1], flight_height + take_off_alt])
+
+	chunk.updateTransform()
+	PhotoScan.app.update()
+	print("DONE")
